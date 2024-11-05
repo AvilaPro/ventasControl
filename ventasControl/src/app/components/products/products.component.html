@@ -2,15 +2,19 @@
 <section id="productos" class="container p-5">
   <h1>Productos</h1>
   <div class="row p-5">
-    <div class="card col-md-4">
-      <img [src]="products[0].imgs[0]" class="card-img-top" alt="Fissure in Sandstone"/>
-      <div class="card-body">
-        <h5 class="card-title">{{ products[0].name }}</h5>
-        <p class="card-text">{{ products[0].description }}</p>
-        <p class="text-success">{{ products[0].price }}$</p>
-        <button [id]="products[0].id" class="btn btn-primary" (click)="addToCart(products[0].id)">Seleccionar</button>
-      </div>
-    </div>
+    @for(producto of products; track producto.id){
+      @if(producto.cantidad > 0){
+        <div class="card col-md-4" [ngClass]="{oferta: (producto.precio < 70000)}">
+            <img [src]="producto.imagen" class="card-img-top" alt="Imagen del Producto"/>
+            <div class="card-body">
+              <h5 class="card-title">{{ producto.nombre }}</h5>
+              <p class="card-text">{{ producto.presentacion }}</p>
+              <p class="text-success" [style.font-weight]="(producto.precio < 70000) ? 'bold': 'normal'">{{ producto.precio }}$</p>
+              <button [id]="producto.id" class="btn btn-primary" (click)="addToCart(producto.id)">Seleccionar</button>
+            </div>
+        </div>
+      }
+    }
   </div>
 </section>
 
